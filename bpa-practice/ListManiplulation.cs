@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,6 +90,7 @@ namespace bpa_practice
                 Debug.Write(listEle); // Doing Write instead of write line to not clutter terminal
             }
             Debug.WriteLine(""); // Create a new line
+
             // Copies the elements of a list to a new array
             int[] intArr = myList.ToArray();
             Debug.WriteLine(string.Join(", ", intArr.ToArray()));
@@ -103,8 +105,40 @@ namespace bpa_practice
             List<int> ReadOnlyEx = new List<int>(myList);
             ReadOnlyEx.AsReadOnly(); // List can not be changed anymore, only read
 
+            //Sorts all elements in the list using the default comparer
+            //For numbers, the default comparer sorts in an ascending order
+            myList.Sort();
+            Debug.WriteLine(string.Join(", ", myList.ToArray()));
 
+            //Sorts all elements in the list using the comparer specified
+            // Can create your own comparer class and use that
+            //can also use lambda expressions etc.\
+            myList.Sort((x, y) => x % 2 == 0 ? -1 : 1);
+            Debug.WriteLine(string.Join(", ", myList.ToArray()));
 
+            //Reverses the order of a List 
+            //can also specify a range in the parameters
+            myList.Reverse();
+            Debug.WriteLine(string.Join(", ", myList.ToArray()));
+
+            //Copies a List to an array
+            //Can also put a range into the parameters
+            List<int> copyToListEx = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
+            int[] myListArr = new int[7];
+            copyToListEx.CopyTo(myListArr);
+            Debug.WriteLine($"Array:{string.Join(", ", myListArr)}");
+
+            // Concatenates two lists and returns a new Ienurable, but can be changed back to list by doing .ToList();
+            List<int> IenumConcatEx = myList.Concat(otherList).ToList();
+            Debug.WriteLine($"Concat: {string.Join(", ", IenumConcatEx.ToArray())}");
+
+            // Sorts the elements of a sequence in ascending order.
+            myList.OrderBy(x => x);
+            Debug.WriteLine($"asending:{IenumConcatEx.ToArray()}");
+
+            // Sorts the elements of a sequence in descending order.
+            myList.OrderByDescending(x => x);
+            Debug.WriteLine($"desending:{IenumConcatEx.ToArray()}");
         }
     }
 }
